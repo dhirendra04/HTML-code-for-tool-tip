@@ -1,0 +1,550 @@
+How to copy data from prod jira to Azure jira ?
+
+1) Login as pesadmin to production jira server.
+2) cd to this directory:
+pesadmin@pla-w01eaux05.walgreens.com:[ /usr/local/ecomm/atlassian/data/jira/jira-data/data/attachments ]
+3) scp -r "a_sub_directory_in_current_dir" deadmin@qlaanujira01-01:data/atlassian/jira-data/data/attachments
+Note: you can use * to copy all subdirectories, but it is obviously too big (and too long) to copy.
+below work instead of step 3: and it copy all but * should not be add if there are multiple  file name with same name
+scp -r MOBILEDEV* deadmin@qlaanujira01-01:data/atlassian/jira-data/data/attachments
+
+to copy anything to azure, stg or other 
+copy data to jira prod then scp from there to other server like below 
+scp -r confluencedb-backup-08-May-2020.sql deadmin@qlaanujira01-01:/usr/local/ecomm/data/atlassian/mysql/db-backup
+
+scp -r wiki_db_backup_15_05_2020_20_30_01.sql.tar.gz deadmin@qlaanujira01-01:/usr/local/ecomm/data/atlassian/mysql/db-backup
+
+wiki_db_backup_15_05_2020_20_30_01.sql.tar.gz
+
+azure db location 
+
+
+/usr/local/ecomm/data/atlassian/mysql/mysql-5.6.41-linux-glibc2.12-x86_64
+
+------------------------------
+
+Login to pla-w01eaux05
+
+cd /usr/local/ecomm/atlassian/data/mysql
+
+scp pla-w01eaux04.walgreens.com:atlassian/confluence/2020_04_17-backup-confluence-3.5.7-std.tar.gz .
+
+if you need to copy between two other boxes, for example, 03 to 04. You need to scp from 03 to 05, then scp 05 to 04, like this:
+
+[pla-w01eaux05] cd <a temp dir>
+[pla-w01eaux05] scp pla-w01eaux03.walgreens.com:source_dir/the_file .
+[pla-w01eaux05] scp the_file pla-w01eaux03.walgreens.com:dest_dir/
+
+
+--------------------------------------
+Create Zip file of a directory:
+
+zip -r tecmint_files.zip tecmint_files 
+
+unzip and archive below file:
+
+unzip tecmint_files.zip
+
+
+data. To compress a directory use the following syntax:
+
+# tar -zcvf archive_name.tar.gz directory_to_compress
+
+To decompress an archive use the following syntax:
+
+# tar -zxvf archive_name.tar.gz
+
+----------------------------------
+how you can backup of any fiel from pla03 or pla04 to prod ?
+
+Login to pla-w01eaux05
+
+cd /usr/local/ecomm/atlassian/data/mysql
+
+scp pla-w01eaux04.walgreens.com:atlassian/confluence/2020_04_17-backup-confluence-3.5.7-std.tar.gz .
+
+if you need to copy between two other boxes, for example, 03 to 04. You need to scp from 03 to 05, then scp 05 to 04, like this:
+
+[pla-w01eaux05] cd <a temp dir>
+[pla-w01eaux05] scp pla-w01eaux03.walgreens.com:source_dir/the_file .
+[pla-w01eaux05] scp the_file pla-w01eaux03.walgreens.com:dest_dir/
+
+
+------------------------
+login on planview with OneID and password then below user 
+
+DSINGH6K
+password? if not remember reset it
+
+ecomjira@walgreens.com 
+ecom2015
+jiraadmin
+password123
+
+https://ecomwiki.walgreens.com/pages/viewpage.action?pageId=460330028
+https://ecomwiki.walgreens.com/pages/viewpage.action?pageId=440120082
+https://ecomwiki.walgreens.com/pages/viewpage.action?pageId=126222381
+installing jira :
+
+https://ecomwiki.walgreens.com/display/DeployEngg/Installing+JIRA
+
+
+
+Server: qlaanujira01-01 IP: 10.217.53.42
+
+http://qlaanujira01-01:8080/
+
+
+
+URl to help to connect VM:
+
+https://docs.microsoft.com/en-us/azure/marketplace/cloud-partner-portal/virtual-machine/cpp-connect-vm
+
+url /site to connect subscription 
+
+https://portal.azure.com/#blade/Microsoft_Azure_Billing/SubscriptionsBlade
+
+
+url to connect support team :
+https://secure.logmeinrescue-enterprise.com/Customer/Code.aspx
+
+
+
+pla-w01eaux05		prod jira
+pla-w01eaux06		prod confluence
+
+stg jira:
+
+secaux02
+secaux03
+
+Confluence prod IP & hostname:
+
+172.23.14.196
+pla-w01eaux05.walgreens.com
+
+Ecomjira prod IP & hostname:
+
+pla-w01eaux06.walgreens.com
+
+172.23.14.197
+
+
+
+ula-w1aux0119  :  172.20.1.114
+--------------------------------------------------
+u need to cal the Unix team
+
+Office: +1-224-300-5070 (Option 2 & 3)
+
+------------------------------------------------
+verify if auto xml backup set every day and deletion service is not eanble for xml backup 
+
+/usr/local/ecomm/atlassian/data/jira/jira-data/export
+########################
+prod jira software location: 
+/usr/local/ecomm/atlassian/jira/atlassian-jira-6.4.12-standalone/bin
+
+Location of JIRA Local Home	/usr/local/ecomm/atlassian/data/jira/jira-data
+########################
+Production jira and db location:
+
+db bin location:
+
+/usr/local/ecomm/atlassian/data/mysql/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/bin
+
+db socket location:
+--socket=/usr/local/ecomm/atlassian/data/mysql/jiraMYSQL/socket/mysql.sock --port=6666
+
+backup location: /usr/local/ecomm/atlassian/data/mysql/DB_Backups
+
+
+cd /usr/local/ecomm/atlassian/data/mysql/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/
+ls
+to connect mysql:
+
+./bin/mysql -u root -p --socket=/usr/local/ecomm/atlassian/data/mysql/jiraMYSQL/socket/mysql.sock --port=6666
+
+to connect jiradb:
+use jiradb:
+
+##################################
+Production WIKI :
+backup location : /usr/local/ecomm/atlassian/data/mysql/DB_Backups/confluencedb-backup-11-Jan-2020.sql
+DB name : confluencedb
+DB location:
+cd /usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/mysql-5.6.41-linux-glibc2.12-x86_64/
+db socket location:
+--socket=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/socket/mysql.sock --port=6667
+
+production WIKI DB Dbbackup command:
+./bin/mysqldump -v --socket=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/socket/mysql.sock --port=6667 -u root -p confluencedb > /usr/local/ecomm/atlassian/data/mysql/DB_Backups/confluencedb-backup-08-May-2020.sql
+
+
+./bin/mysqldump -v --socket=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/socket/mysql.sock --port=6667 -u root -p confluencedb > /usr/local/ecomm/atlassian/data/mysql/DB_Backups/confluencedb-backup-08-May-2020.sql
+
+-ksh: --ignore-table=confluencedb.SNAPSHOTS: not found [No such file or directory]
+
+
+./bin/mysqldump -v --socket=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/socket/mysql.sock --port=6667 -u root -p confluencedb --ignore-table=confluencedb.PLUGINDATA --ignore-table=confluencedb.BODYCONTENT > /usr/local/ecomm/atlassian/data/mysql/DB_Backups/confluencedb-backup-08-May-2020.sql
+
+
+
+
+
+
+--ignore-table=confluencedb.PLUGINDATA --ignore-table=confluencedb.SNAPSHOTS
+
+
+
+
+
+
+cd /usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/mysql-5.6.41-linux-glibc2.12-x86_64/
+
+stop mysql command:
+
+./bin/mysqladmin --socket=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/socket/mysql.sock --port=6667 -u root -p shutdown
+
+Start mysql command :
+
+./bin/mysqld_safe --defaults-file=/usr/local/ecomm/atlassian/data/mysql/confluenceMYSQL/conf/my.cnf
+
+===============================
+-----------------------------------------------------------
+Always check with OC team to check if any system related alert have triggered.
+
+Call these vnets and ask for leads who can guide you accordingly. If needed you would reach-out to Unix 2L team and triage the issue.
+
+463510 - Leads
+463570 - Primary
+463571 - Secondary
+----------------------------------------
+1 installed python on my VDI, pycharm and set environmnent 
+2 used below url and installed Driver on VDI on python location
+https://pythonspot.com/mysql-with-python/
+3 
+
+-------------------------------------
+
+CHIWM test project on secaux02
+
+
+-------------------------------------------------------------
+command history
+
+cat atlassian-jira.log |grep "connection pool" |wc -l
+cat     atlassian-jira.log |grep "connection" |wc -l
+view atlassian-jira.log
+cat     atlassian-jira.log |grep "connection" |wc -l
+
+cat atlassian-confluence.log |grep "connection pool" |wc -l
+
+cat atlassian-confluence.log |grep "connection" |wc -l
+cat atlassian-confluence.log |grep "Starting" |wc -l
+
+cat atlassian-confluence.log |grep "error" |wc -l
+cat atlassian-confluence.log |grep "StuckThread" |wc -l
+cat atlassian-confluence.log |grep "Unexpected error" |wc -l
+
+Unexpected error
+
+--------------------------------------------------------------------------------
+
+less atlassian-jira.log | grep -i "customfield_16610" | wc -l
+less atlassian-jira.log | grep -i "Usually this is a transient race condition" | wc -l
+
+less atlassian-jira.log.1 | grep -i "Usually this is a transient race condition" | wc -l
+less atlassian-jira.log.5 | grep -i "Usually this is a transient race condition"
+
+-------------------------------------------------------------
+
+url to refer : https://ecomwiki.walgreens.com/display/~jdakshs3/Jayashree+Notes
+
+/usr/local/ecomm/atlassian/jira/atlassian-jira-6.4.12-standalone/logs
+
+stg 3 db backup directory :
+
+/usr/local/ecomm/nas/atlassian/DB_Backup
+
+location of mysql:
+/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/mysql-5.6.41-linux-glibc2.12-x86_64
+
+
+Socket:
+--socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/socket/mysql.sock --port=6666
+
+command to get backup :
+
+$./bin/mysqldump -v --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/socket/mysql.sock --port=6666 -u root -p jiradb > /usr/local/ecomm/nas/atlassian/DB_Backup/db-backup-date-nov-19-stg.sql
+
+./bin/mysqldump -v --socket=/usr/local/ecomm/nas/atlassian/confluenceMYSQL/socket/mysql.sock --port=6667 -u root -p confluencedb > /usr/local/ecomm/nas/atlassian/DB_Backup/confluencedb-backup-10-Jan-20.sql
+
+
+-------------------------------------------------------------------------
+ps -ef |grep jira
+
+copy below location in notepad
+/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/mysql-5.6.41-linux-glibc2.12-x86_64
+--socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/socket/mysql.sock --port=6666
+
+go to 
+cd /usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/mysql-5.6.41-linux-glibc2.12-x86_64
+
+
+./bin/mysqldump -v --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL_secaux03/socket/mysql.sock --port=6666 -u root -p jiradb > /usr/local/ecomm/nas/atlassian/DB_Backup/db-backup-12-nov-19-stg.sql
+
+
+
+-----------------------------------------------------------
+root
+time2roll
+
+jdakshs3
+
+$ sudo su - pesadmin
+$ ls -ltr
+$ ps -ef | grep mysql
+
+----------------------------------------------------------
+test project:
+http://secaux02.walgreens.com:8095/browse/CHIWM-1023
+http://secaux02.walgreens.com:8095/plugins/servlet/project-config/CHIWM/workflows
+
+--------------------------------------------------------
+email format:
+
+to ID:
+ecomscm
+ecomjira
+ecomrm
+
+Update name as per stash for
+
+assign to 
+gokitha.madeswaran@walgreens.com or Naganandini Mahendran
+
+Hi Naganandini Mahendran
+Please confirm application name as per stash "wag-mobile-androidpayreportbatch & wag-mobile-googlefitreportbatch" for project MWS .
+
+
+Regards,
+Dhirendra Singh
+--------------------------------------------------------------------
+
+Subject:
+Clear /var/log on pla-w01eaux05
+
+
+2L-EISOPSUNIX@walgreens.com
+
+
+Hi Unix Team,
+ 
+Please clear old files ( messages-* as shown below ) at /var/log directory in server pla-w01eaux05.walgreens.com  as it reached 85%.
+
+/dev/mapper/rootvg-var                         5.8G  4.7G  884M  85% /var
+
+$ cd /var/log/
+$ du -sh messages*
+1.1G    messages
+0       messages-20191006
+
+---------------------------------------
+email for stash access :
+as per ticket JRA-4445 and JRA-4383
+
+JRA tickets are usually for issues under EcomJira and Wiki, Kindly raise an ENV ticket  for issues related to Stash.
+or 
+Kindly contact "Atlassian" <Atlassian@walgreens.com> as we are not maintaining stash application.
+
+
+
+
+
+----------------------------------------------------------
+create tar :
+tar -cf file-name.gz actual_file_name
+
+extract file :
+tar -zxvf /location/file.tar.gz
+
+
+-----------------------------------------------------------------
+contact below for sudo or permission on box 
+
+call at 2243005077 or email to identity-authenticator@walgreens.com
+-------------------------------------------------------
+Weekly Jira Status Report - 10/18
+
+"Vavanan, Mohamedkaja" <mohamedkaja.vavanan@walgreens.com>
+"Ravishankar, Sreeram" <sreeram.ravishankar@walgreens.com>
+"Dakshinamoorthy, Jayashree" <jayashree.dakshinamoorthy@walgreens.com>
+"Mathews, Jason" <jason.mathews@walgreens.com>
+
+
+
+JQl to get issue based on custom field value: 
+Project = DHC AND cf[16410] = shiptohomearnotification
+
+
+jql with scriptrunner
+
+https://scriptrunner.adaptavist.com/5.3.9/jira/jql-functions.html
+
+Automatically deactivate inactive JIRA users:
+https://www.adaptavist.com/doco/display/SFJ/Automatically+deactivate+inactive+JIRA+users
+
+JQL to get closed issue which have unresolved linked issue 
+
+project = SR AND status in (Closed,Close,Resolved) AND issueFunction in linkedIssuesOf("resolution = unresolved")
+
+
+Location:
+mysql database login location :
+usr/local/ecomm/nas/atlassian/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/bin/
+
+mysql socket location:
+
+--socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL/socket/mysql.sock --port=6666
+
+jira software location for stg:
+
+/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone
+
+
+
+sesadmin 27123 26960  1 Aug07 ?        1-09:50:09 /usr/local/ecomm/nas/atlassian/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/bin/mysqld --defaults-file=../conf/my.cnf --basedir=/usr/local/ecomm/nas/atlassian/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64 --datadir=/usr/local/ecomm/nas/atlassian/jiraMYSQL --plugin-dir=/usr/local/ecomm/nas/atlassian/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/lib/plugin --log-error=/usr/local/ecomm/nas/atlassian/jiraMYSQL/secaux02.err --pid-file=/usr/local/ecomm/nas/atlassian/jiraMYSQL/run/mysql.pid --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL/socket/mysql.sock --port=6666
+sesadmin 30984     1  2 Jun28 ?        2-17:26:36 /usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/jre/bin/java -Djava.util.logging.config.file=/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Xms6144m -Xmx6144m -Djava.awt.headless=true -Datlassian.standalone=JIRA -Dorg.apache.jasper.runtime.BodyContentImpl.LIMIT_BUFFER=true -Dmail.mime.decodeparameters=true -Dorg.dom4j.factory=com.atlassian.core.xml.InterningDocumentFactory -Dhttps.proxyHost=wagcorppac.walgreens.com -Dhttps.proxyPort=8080 -Dhttps.nonProxyHosts=*.walgreens.com|localhost -XX:+UseG1GC -XX:ReservedCodeCacheSize=512m -Dhttp.proxyHost=wagcorppac.walgreens.com -Dhttp.proxyPort=8080 -Dhttp.nonProxyHosts=*.walgreens.com|localhost -XX:-OmitStackTraceInFastThrow -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Djava.rmi.server.hostname=172.20.7.134 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=8099 -Dcom.sun.management.jmxremote.port=8099 -Dcom.sun.management.jmxremote -Xloggc:/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/logs/atlassian-jira-gc-%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=5 -XX:GCLogFileSize=20M -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps -XX:+PrintGCCause -classpath /usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/bin/bootstrap.jar:/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/bin/tomcat-juli.jar -Dcatalina.base=/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone -Dcatalina.home=/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone -Djava.io.tmpdir=/usr/local/ecomm/atlassian/atlassian-jira-7.9.2-standalone/temp org.apache.catalina.startup.Bootstrap start
+[sesadmin@secaux02]:/usr/local/ecomm
+
+
+
+
+
+ps -ef |grep mysql
+
+cd bin/
+ls -l
+./mysql -u root -p --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL/socket/mysql.sock --port=6666
+./mysql -u root -p --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL/socket/mysql.sock --port=6666
+
+ps -ef |grep jira
+
+to login on mysql go on below location & fololow below steps:
+
+cd /usr/local/ecomm/nas/atlassian/jiraMYSQL/mysql-5.5.13-linux2.6-x86_64/
+cd bin/
+./mysql -u root -p --socket=/usr/local/ecomm/nas/atlassian/jiraMYSQL/socket/mysql.sock --port=6666
+
+command to connect DB
+
+> show databases;
+
+
+#######################################################
+MS project and their issue type 
+
+BRS - Browse
+CAT - Catalog
+CCM - Cart and Checkout Microservices
+CMM - Campaign Management Microservice
+COM - Common Services
+DCP - Digital Customer Portal
+DHC - Digital Pharmacy Consumer Engagement
+DHF - Digital Pharmacy Fulfillment
+DHH - Digital Consumer Health
+DHX - Digital Pharmacy Checkout
+DOC - Digital Offers & Coupons
+DWM - Data-warehouse Micro Services
+HRM - Harmony
+Health Innovation Platform Microservices
+LMS - Loyalty Microservice
+MOB - Mobile
+MOBILEDEV - Mobile Development
+MWS - Mobile Webservices
+OMS - OMS Micro Services
+OMS Open Source
+SR - Search
+WAP - Walgreens API Program
+WTT - WeText
+
+-------------
+Deployment
+Bug
+BRS - Story
+CAT - Story
+COM - Story
+DCP - Story
+CCM - Story
+CMM - Story
+DHC - Story
+DHF - Story
+DHH - Story
+DHX - Story
+DOC - Story
+DWM - Story
+HRM - Story
+HIP - Story
+LMS - Story
+MOB - Story
+MOBILEDEV - Story
+MWS - Story
+OMS - Story
+SR - Story
+WAP - Story
+WTT - Story
+
+Indexing automation help:
+
+https://community.atlassian.com/t5/Answers-Developer-Questions/Activating-JIRA-Indexing-via-Script/qaq-p/575425
+-------------------------------------------------------------------
+Map required field in MS project (need to mapp below field in any new project which is using MS project template or new MS project)
+
+
+Tech Lead Owner: not coming in Bug for PSAM project | done
+Issue Identified : not coming in Bug for PSAM project | done
+
+T Shirt Size : not coming in Epic for PSAM project | all below done
+
+Feature Bucket : 
+Life Cycle Stage
+Product Segment
+Dependency
+
+Story Points : not coming in PSAM project on create screen |Done
+
+Environment: field configured for PSAM updated as MS for bug and epik
+
+Application_Microservices: not coming for any issue type | do we need to add context for PSAM project ?
+---------------------------------------------------------------------------------
+
+Script to create confluencedb backup on secaux03
+
+/usr/local/ecomm/nas/atlassian/confluenceMYSQL/mysql-5.6.41-linux-glibc2.12-x86_64/bin/mysqldump -v --socket=/usr/local/ecomm/nas/atlassian/confluenceMYSQL/socket/mysql.sock --port=6667 -u root --password=time2roll confluencedb | gzip > /usr/local/ecomm/nas/atlassian/DB_Backup/stg3-confluencedb-19-Feb-backup.gz
+............
+
+-------Script to backup confluence database sige on azure confluence server ---------------------------------
+
+./bin/mysqldump -u root -p --socket=/usr/local/ecomm/data/atlassian/mysql/confluencedb/socket/mysql.sock --port=6667 confluencedb > /usr/local/ecomm/data/atlassian/installation/confluence-test-backup.sql
+
+
+--------Script to restore confluence database sige on azure confluence server ---------------------------------------
+
+
+
+./bin/mysql -u root -p --socket=/usr/local/ecomm/data/atlassian/mysql/confluencedb/socket/mysql.sock --port=6667 confluencedb < /usr/local/ecomm/data/atlassian/DB_backup/stg3-confluencedb-19-Feb-backup
+
+
+./bin/mysql -u root -p --socket=/usr/local/ecomm/data/atlassian/mysql/confluencedb/socket/mysql.sock --port=6667 confluencedb < /usr/local/ecomm/data/atlassian/mysql/db-backup/wiki_db_backup_15_05_2020_20_30_01.sql
+
+--------Script to verify Db sige ------------------------------------------------
+
+SELECT
+    table_schema AS 'confluencedb',
+    ROUND(SUM(data_length + index_length) / 1024 / 1024, 1) AS 'DB Size in MB'
+FROM
+    information_schema.tables
+GROUP BY
+    table_schema;
+
