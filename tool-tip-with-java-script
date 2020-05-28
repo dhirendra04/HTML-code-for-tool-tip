@@ -1,0 +1,43 @@
+<script type="text/javascript">
+  function showHelp() {
+        var listenersDiv = document.getElementById("qaFieldHelp");
+        if (listenersDiv.style.display == 'none') {
+          listenersDiv.style.display = '';
+        } else {
+          listenersDiv.style.display='none';
+        }
+  }
+</script>
+<a href="#"  onmouseover="showHelp();"  onmouseout="showHelp();"><img 
+
+src="/images/icons/ico_help.png"/>Mouse Hover here to know when to seek 
+
+DivisionalApprovals</a>
+<div id="qaFieldHelp" style="display:none">
+ <ul>
+  <li>Legal</li>
+  <ul><li>Any description here ? ? ?</li></ul>
+  <li>Identity</li>
+  <ul><li>Any change to Identity and Access Management</li></ul>
+  <li>Privacy</li>
+  <ul><li>Any changes that may have a material impact on how we process protected health 
+
+information (PHI) or personally identifiable information (PII)</li></ul>
+  <li>Security</li>
+  <ul><li>2FA/MFA</li></ul>
+  <ul><li>Any change to WAF</li></ul>
+  <ul><li>Any change to logging</li></ul>
+  <li>Security Architecture *Any change to Architecture (these MUST have an ISSR first)
+
+*</li>
+  <ul>
+  <li>Product</li>
+  <li>Platform</li>
+  <li>Network Design</li>
+  <li>Hosting Location</li>
+  <li>New Micro Services</li>
+  <li>New Customer APIs</li>
+  <li>Database or Network encryption</li>
+  </ul>
+</ul>  
+</div>
